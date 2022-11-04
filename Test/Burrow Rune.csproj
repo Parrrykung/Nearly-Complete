@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <TieredCompilation>false</TieredCompilation>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Content\ASSET 2D\1st_floor_2.png" />
+    <None Remove="Content\ASSET 2D\Arrow.png" />
+    <None Remove="Content\ASSET 2D\Attack.png" />
+    <None Remove="Content\ASSET 2D\Background\map_3.png" />
+    <None Remove="Content\ASSET 2D\Blood_maiden_sprite_sheet.png" />
+    <None Remove="Content\ASSET 2D\Char01.png" />
+    <None Remove="Content\ASSET 2D\Flying-Rock-Icon.png" />
+    <None Remove="Content\ASSET 2D\Flying-Rock_Sheet.png" />
+    <None Remove="Content\ASSET 2D\Golem-Sheet.png" />
+    <None Remove="Content\ASSET 2D\Golem_Sprite_sheet.png" />
+    <None Remove="Content\ASSET 2D\Hermit-Rock-Icon.png" />
+    <None Remove="Content\ASSET 2D\Hermit-Rock-Sheet.png" />
+    <None Remove="Content\ASSET 2D\Inventor_Sprite_Sheet.png" />
+    <None Remove="Content\ASSET 2D\Item.png" />
+    <None Remove="Content\ASSET 2D\Lurker_Sprite_Sheet.png" />
+    <None Remove="Content\ASSET 2D\Skill.png" />
+    <None Remove="Content\ASSET 2D\Sprite\Blood_maiden\Blood maiden idel Sheet.png" />
+    <None Remove="Content\ASSET 2D\Sprite\Dragonic_hunter\Dragonic Idel Sheet.png" />
+    <None Remove="Content\ASSET 2D\Sprite\Inventor\Inventor idel sheet.png" />
+    <None Remove="Content\ASSET 2D\Sprite\Lurker\Lurker idel sheet.png" />
+    <None Remove="Content\ASSET 2D\Turn-Order-Hub.png" />
+    <None Remove="Content\ASSET 2D\Turn-Selector.png" />
+    <None Remove="Content\ASSET 2D\UI\Blood Maiden Icon.png" />
+    <None Remove="Content\ASSET 2D\UI\HP bar.png" />
+    <None Remove="Content\ASSET 2D\UI\Inventor icon.png" />
+    <None Remove="Content\ASSET 2D\UI\Lurker Icon.png" />
+    <None Remove="Content\BGM\it39s-going-to-snow-today-12135.mp3" />
+    <None Remove="Content\File.spritefont" />
+    <None Remove="Content\ZoodHarit4Bit-thai.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.0.1641" />
+    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+</Project>
