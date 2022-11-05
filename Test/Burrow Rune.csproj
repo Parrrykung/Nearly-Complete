@@ -7,8 +7,9 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <PropertyGroup>
+    <ApplicationIcon>BurrowRune.ico</ApplicationIcon>
+    <Win32Resource />
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Content\ASSET 2D\1st_floor_2.png" />
