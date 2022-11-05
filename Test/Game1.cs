@@ -131,6 +131,7 @@ namespace Burrow_Rune
         private Texture2D Event2_Texture;
         private Texture2D Event3_Texture;
         private Texture2D Event4_Texture;
+        private Texture2D Spike_Texture;
 
 
         public UnitClass Lurker = new UnitClass(true, 6, 30, 5, 0, 20);
@@ -186,6 +187,7 @@ namespace Burrow_Rune
         private List<Button> ButtoninShop = new List<Button>();
         private List<Button> ButtoninEvent = new List<Button>();
         private List<SoundEffect> BattleSFX = new List<SoundEffect>();
+        private List<Vector2> SpikePosition = new List<Vector2>();
 
         private Song TitleBGM;
         private Song LoseBGM;
@@ -300,6 +302,7 @@ namespace Burrow_Rune
             Event2_Texture = Content.Load<Texture2D>("Asset 2D/Background/Hekp");
             Event3_Texture = Content.Load<Texture2D>("Asset 2D/Background/Trap");
             Event4_Texture = Content.Load<Texture2D>("Asset 2D/Background/Gold");
+            Spike_Texture = Content.Load<Texture2D>("Asset 2D/Sprite/Enemy/Spike");
 
 
             font = Content.Load<SpriteFont>("font");
@@ -371,6 +374,11 @@ namespace Burrow_Rune
             BattleSFX.Add(Content.Load<SoundEffect>("SFX/Effect_Buff"));
             BattleSFX.Add(Content.Load<SoundEffect>("SFX/MatchGirl_Explosion"));
             BattleSFX.Add(Content.Load<SoundEffect>("SFX/SnowQueen_Atk"));
+
+            for (int i = 0; i < 5; i++)
+            {
+                SpikePosition.Add(new Vector2(1000 + i, 1000 + i));
+            }
 
             Lurker.Skill_list.Add(Double_Slash);
             Lurker.Skill_list.Add(Ankle_Cut);
@@ -1026,9 +1034,9 @@ namespace Burrow_Rune
                                             TurnOrder[i].ATKframe = 1;
                                             Party[target].healed = true;
                                             Party[target].HP += 20;
-                                            if (Party[target].HP > Party[i].MaxHP)
+                                            if (Party[target].HP > Party[target].MaxHP)
                                             {
-                                                Party[i].HP = Party[i].MaxHP;
+                                                Party[target].HP = Party[target].MaxHP;
                                             }
                                             timeLoad = true;
                                             BattleSFX[4].CreateInstance().Play();
@@ -1209,8 +1217,8 @@ namespace Burrow_Rune
                                     Party[ATKcount].HP -= TurnOrder[i].Atk;
                                     Party[ATKcount].spriteLocation2 = Party[ATKcount].spriteLocation;
                                     Party[ATKcount].spriteLocation.X -= 20;
+                                    SpikePosition[ATKcount] = Party[ATKcount].spriteLocation;
                                     ATKcount += 1;
-                                    HitEffect_Position = Party[target].spriteLocation;
                                     BattleSFX[TurnOrder[i].AttackSFX].CreateInstance().Play();
                                 }
                                 else
@@ -1255,7 +1263,7 @@ namespace Burrow_Rune
                                     Party[target].HP -= TurnOrder[i].Atk;
                                     Party[target].spriteLocation2 = Party[target].spriteLocation;
                                     Party[target].spriteLocation.X -= 20;
-                                    HitEffect_Position = Party[target].spriteLocation;
+                                    SpikePosition[0] = Party[target].spriteLocation;
                                     TurnOrder[i].MP += 5;
                                     BattleSFX[TurnOrder[i].AttackSFX].CreateInstance().Play();
                                 }
@@ -1341,6 +1349,10 @@ namespace Burrow_Rune
                         ButtoninBattle[m].Pressed = false;
                         ButtoninBattle[m].mouseHover = false;
                     }
+                    for (int m = 0; m < SpikePosition.Count; m++)
+                    {
+                        SpikePosition[m] = new Vector2(1000, 1000);
+                    }
                     timeLoad = false;
                     frameInCombat = 0;
                     TurnOrder[i].ATKframe = 0;
@@ -1397,7 +1409,7 @@ namespace Burrow_Rune
                                 EnemyGroup[m].Alive = true;
                                 EnemyGroup[m].speed = EnemyGroup[m].Ospeed;
                                 EnemyGroup[m].Atk = EnemyGroup[m].Oatk;
-                                if (EnemyGroup[m] == Golem)
+                                if (EnemyGroup[m] == Golem || EnemyGroup[m] == Ice_Golem || EnemyGroup[m] == Boss)
                                 {
                                     Gold += 200;
                                 }
@@ -2590,7 +2602,7 @@ namespace Burrow_Rune
                 if (EnemyGroup[i] == Ice_Golem)
                 {
                     _spriteBatch.Draw(HPMPbar_Texture, Ice_Golem.HPMPbar_iconLocation, new Rectangle(0, 0, 270, 30), Color.White);
-                    _spriteBatch.Draw(HPMPbar_Texture, Ice_Golem.HPbar_Location, new Rectangle(0, 0, Ice_Golem.HP * (280 * 2 / Ice_Golem.MaxHP * 2), 30), Color.Red);
+                    _spriteBatch.Draw(HPMPbar_Texture, Ice_Golem.HPbar_Location, new Rectangle(0, 0, Ice_Golem.HP * (300 / Ice_Golem.MaxHP ), 30), Color.Red);
                     _spriteBatch.Draw(Ice_Golem_Icon, Ice_Golem.Small_iconLocation,Ice_Golem.State);
                     _spriteBatch.Draw(Ice_Golem_Big_Icon, Ice_Golem.Big_iconLocation, Color.White);
                     _spriteBatch.DrawString(font, Ice_Golem.HPtext, new Vector2(Ice_Golem.HPMPbar_iconLocation.X + 120, Ice_Golem.HPMPbar_iconLocation.Y), Color.Black);
@@ -2663,6 +2675,11 @@ namespace Burrow_Rune
             _spriteBatch.Draw(HeathPotio_Texture, HeathPotion.Position, HeathPotion.State);
             _spriteBatch.Draw(ManaPotio_Texture, ManaPotion.Position, ManaPotion.State);
             _spriteBatch.Draw(Bomb_Texture, Bomb.Position, Bomb.State);
+            for (int i = 0; i < SpikePosition.Count; i++)
+            {
+                _spriteBatch.Draw(Spike_Texture, SpikePosition[i], Color.White);
+            }
+            
 
             string HPpotiontxt = "" + HPPotionAmo;
             _spriteBatch.DrawString(font, HPpotiontxt, new Vector2(HeathPotion.Position.X + 80, HeathPotion.Position.Y + 15), Color.White);
@@ -2772,6 +2789,10 @@ namespace Burrow_Rune
             for (int i = 0; i < Party.Count; i++)
             {
                 Party[i].isAttacking = false;
+            }
+            for (int m = 0; m < SpikePosition.Count; m++)
+            {
+                SpikePosition[m] = new Vector2(1000, 1000);
             }
             turn = 0;
             timeLoad = false;
